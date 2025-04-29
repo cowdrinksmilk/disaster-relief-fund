@@ -1,0 +1,254 @@
+<!-- 
+  UFund Disaster Relief UI
+  This file provides the structure for the UFund web application, allowing users
+  to manage needs by retrieving, searching, adding, updating, and deleting records.
+
+  Author[s]: Mary Almazan,  Demitri Clark, Emma Wheeler
+-->
+
+<div class="container">
+  <h1>UFund Disaster Relief</h1>
+
+  <!-- Choose User Type--> 
+  <div id = "loginScreen" class = "loginScreen">
+    <div class="login-container">
+      <div class="login-header">
+          <h1>Welcome Back</h1>
+      </div>
+      <label>Username</label>
+      <input type="text" [(ngModel)]="userBasket.username" class="username" placeholder="Enter your username">
+      <button (click)="loadUserBasket()" class="login-button" onclick="login();">Log In</button>
+  </div>
+</div>
+
+  <!-- Search by ID -->
+   <div class = 'Helper'>
+    <h2>Retrieve a Specific Need</h2>
+    <input type="number" [(ngModel)]="searchId" placeholder="Enter need ID" />
+    <button (click)="retrieveNeed()">Retrieve Need</button>
+  </div>
+
+  
+   
+  <!-- Search Needs by disaster -->
+  <div class = "Helper">
+    <h2>Search Needs by Disaster</h2>
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Type to search..." />
+    <button (click)="searchNeedsByDisasterA()">Search</button>
+  </div>
+  
+
+  <!-- Search by Description -->
+  <div class = "Helper">
+    <h2>Search Needs by Description</h2>
+    <input type="text" [(ngModel)]="searchQueryDesc" placeholder="Search by description..." />
+    <button (click)="searchNeedsByDescription()">Search</button>
+  </div>
+
+  <!-- Add New Need -->
+  <div class="Admin">
+    <h2 >Add a New Need</h2>
+    <input type="text" [(ngModel)]="newNeed.name" placeholder="Name" />
+    <input type="text" [(ngModel)]="newNeed.description" placeholder="Description" />
+    <input type="number" [(ngModel)]="newNeed.quantity" placeholder="Quantity" />
+    <input type="number" [(ngModel)]="newNeed.cost" placeholder="Cost" />
+    <button (click)="addNeed()">Add Need</button>
+  </div>
+
+  <!-- Add New Disaster -->
+  <div class="Admin">
+    <h2 >Add a New Disaster</h2>
+    <input type="text" [(ngModel)]="newDisaster.name" placeholder="Name" />
+    <input type="text" [(ngModel)]="newDisaster.description" placeholder="Description" />
+    <button (click)="addDisaster()">Add Disaster</button>
+  </div>
+
+  <!-- List Needs for Admin -->
+  <div class = "Admin">
+    <h2>Edit Needs</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Cost</th>
+        <th>Actions</th>
+      </tr>
+      
+      <tr *ngFor="let need of needs">
+        <td><input [(ngModel)]="need.name" /></td>
+        <td><input [(ngModel)]="need.description" /></td>
+        <td><input type="number" [(ngModel)]="need.quantity" /></td>
+        <td><input type="number" [(ngModel)]="need.cost" /></td>
+        <td>
+          <button (click)="updateNeed(need)">Update</button>
+          <button (click)="deleteNeed(need.id)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- control disasters: admin -->
+  <div class = "Admin">
+    <div *ngFor="let dummy of disastersEmpty"> 
+      <h2> Disasters </h2>
+      <div *ngFor="let disaster of disasters"> <!-- theres def a better way to do this i just don't have the time to find it-->
+      <table>
+        <tr>
+          <td><input [(ngModel)]="disaster.name" /></td>
+          <td><input [(ngModel)]="disaster.description" /></td>
+          <td>
+            <button (click)="updateDisaster(disaster)">Update</button>
+            <button (click)="deleteDisaster(disaster.id)">Delete</button>
+          </td>
+        </tr>
+      </table>
+
+      <table>
+        <h2> Add Needs to Disaster </h2>
+        <tr>
+          <th>Needs</th>
+          <th>ID</th>
+          <th>Description</th>
+          <th>Available</th>
+          <th>Cost Per Unit</th>
+          <th>Add To Disaster</th>
+        </tr>
+        
+        <tr *ngFor="let need of needs">
+          <td><input [(ngModel)]="need.name" readonly="readonly"/></td>
+          <td><input [(ngModel)]="need.id" readonly="readonly"/> </td>
+          <td><input [(ngModel)]="need.description" readonly="readonly"/></td>
+          <td><input type="number" [(ngModel)]="need.quantity" class="saveoriginal" readonly="readonly"/></td>
+          <td><input type="number" [(ngModel)]="need.cost" readonly="readonly"/></td>
+          <td>
+            <button (click)="addItemToDisaster(need, disaster)" id="addToDisasyerBtn">Add To Disaster</button> 
+          </td>
+        </tr>
+      </table>
+
+      <h2> Needs in Disaster </h2>
+
+        <table>
+          <tr>
+            <th>Needs</th>
+            <th>Description</th>
+            <th>Cost Per Unit</th>
+            <th>Remove</th>
+          </tr>
+          
+          <tr *ngFor="let needId of disaster.items">
+            <td><input [(ngModel)]="getNeedByID(needId).name" readonly="readonly"/></td>
+            <td><input [(ngModel)]="getNeedByID(needId).description" readonly="readonly"/></td>
+            <td><input type="number" [(ngModel)]="getNeedByID(needId).cost" readonly="readonly"/></td>
+            <td>
+              <button (click)="removeNeedFromDisaster(getNeedByID(needId), disaster)" id="removeFromDisasterBtn">Remove</button> 
+            </td>
+          </tr>
+        </table>
+      </div>
+  </div>
+</div>
+
+  <!-- List Needs for Helper -->
+
+  <div class = "Helper">
+    <h2>Needs Available</h2>
+    <table>
+      <tr>
+        <th>Needs</th>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Available</th>
+        <th>Cost Per Unit</th>
+        <th>Quantity</th>
+        <th>Checkout</th>
+      </tr>
+      
+      <tr *ngFor="let need of needs">
+        <td><input [(ngModel)]="need.name" readonly="readonly"/></td>
+        <td><input [(ngModel)]="need.id" readonly="readonly"/> </td>
+        <td><input [(ngModel)]="need.description" readonly="readonly"/></td>
+        <td><input type="number" [(ngModel)]="need.quantity" class="saveoriginal" readonly="readonly"/></td>
+        <td><input type="number" [(ngModel)]="need.cost" readonly="readonly"/></td>
+        <td><input type="number" [(ngModel)]="buyCounts[getBuyCountIndex(need)]" min="1" placeholder="1" /></td>
+        <td>
+          <button (click)="addItemToBasket(need, buyCounts[getBuyCountIndex(need)])" id="addToCartBtn">Add To Cart</button> 
+        </td>
+      </tr>
+    </table>
+</div>
+
+<!-- view disasters: helper -->
+<div class = "Helper">
+<div *ngFor="let dummy of disastersEmpty">
+  <h2>Disasters</h2>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let disaster of disasters">
+      <td><input [(ngModel)]="disaster.name" readonly="readonly"></td>
+      <td><input [(ngModel)]="disaster.description" readonly="readonly"></td>
+      <td> <button (click)="searchNeedsByDisasterB(disaster)" id="viewByDisasterBtn">View Needs</button></td>
+    </tr>
+  </table>
+</div>
+</div>
+
+<!-- Basket -->
+  <div class = "Helper">
+    <div *ngFor="let dummy of isEmpty"> <!-- theres def a better way to do this i just don't have the time to find it-->
+      <h2>Basket</h2>
+      <table>
+        <tr>
+          <th>Needs</th>
+          <th>Description</th>
+          <th>Cost Per Unit</th>
+          <th>Quantity</th>
+          <th>Checkout</th>
+          <th>Remove</th>
+        </tr>
+        
+        <tr *ngFor="let needId of userBasket.items">
+          <td><input [(ngModel)]="getNeedByID(needId).name" readonly="readonly"/></td>
+          <td><input [(ngModel)]="getNeedByID(needId).description" readonly="readonly"/></td>
+          <td><input type="number" [(ngModel)]="getNeedByID(needId).cost" readonly="readonly"/></td>
+          <td><input type="number" [(ngModel)]="userBasket.counts[getBasketIndex(needId)]" readonly="readonly" />
+          </td>
+          <td>
+            <button (click)="purchaseNeed(getNeedByID(needId))" id="purchaseBtn" onclick="showReceipt();">Buy Now</button> 
+          </td>
+          <td>
+            <button (click)="removeItemFromBasket(getNeedByID(needId))" id="removeFromCartBtn">Remove</button> 
+          </td>
+        </tr>
+      </table>
+      <button (click)="purchaseAllNeeds()" id="purchaseAllBtn" onclick="showReceipt();">Checkout</button> 
+    </div>
+  </div>
+
+<div class="Receipts">
+  <h2> Thank you for your purchase!</h2>
+  <h3> <input [(ngModel)]="date" readonly="readonly"/> </h3>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Count</th>
+      <th>Cost</th>
+    </tr>
+    <tr *ngFor="let entry of receipt">
+      <td> <input [(ngModel)]="entry.item" readonly="readonly"> </td>
+      <td> <input [(ngModel)]="entry.count" readonly="readonly"> </td>
+      <td> <input [(ngModel)]="entry.cost" readonly="readonly"> </td>
+    </tr>
+    <tr> 
+      <td></td>
+      <td> Total: </td>
+      <td> <input [(ngModel)]="total" readonly="readonly"></td>
+    </tr>
+  </table>
+  <button (click)="clearReceipt()" id="clearReceiptBtn" onclick="hideReceipt();">Okay</button>
+</div>

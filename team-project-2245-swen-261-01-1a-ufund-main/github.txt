@@ -1,0 +1,35 @@
+commit 717dba9d416e2464c6779dee180a5366085de748
+Author: bwg6094 <158981066+bwg6094@users.noreply.github.com>
+Date:   Tue Feb 11 10:08:10 2025 -0500
+
+    Add name to readme
+
+commit 7fde03c950a264d147a97e0e2711834aee45d267
+Author: Sean James <saj6853@rit.edu>
+Date:   Tue Feb 11 09:54:41 2025 -0500
+
+    added name to README
+
+commit a16538ed791881b1603222444e2f61700e8db1ba
+Author: Demitri Clark <demitrilucienclark@gmail.com>
+Date:   Tue Feb 11 09:52:06 2025 -0500
+
+    Update README.md
+
+commit f752f19d429ff05acb6518517692cde58ebfb909
+Author: Emma Wheeler <nww7445@rit.edu>
+Date:   Tue Feb 11 09:47:46 2025 -0500
+
+    Added my name
+
+commit b9fef4f13305fbc2444f8c9fb8139e99043fc68e
+Author: Mary Almazan <maryalmazan@Marys-MacBook-Pro-6.local>
+Date:   Tue Feb 11 09:45:21 2025 -0500
+
+    I added my name to the README.md file
+
+commit 0fbd66cc7be691051b390beb38104cb2cc555a33
+Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
+Date:   Tue Feb 11 02:33:07 2025 +0000
+
+    Initial commit

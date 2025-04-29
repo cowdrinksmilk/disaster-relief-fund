@@ -1,0 +1,208 @@
+/**
+ * Stylesheet for the Ufund UI Angular Application.
+ * Provides a dark theme for the interface, including typography, buttons,
+ * tables, and form elements.
+ *
+*
+ * Author[s]: Mary Almazan, Demitri Clark
+ */
+ 
+ body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #e0e0e0;
+    text-align: center;
+}
+
+.container {
+    max-width: 1500px;
+    min-height: 500px;
+    margin: 40px auto;
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+h1, h2 {
+    color: #f5f5f5;
+}
+
+input {
+    width: 98%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-size: 16px;
+    background: #333;
+    color: #e0e0e0;
+    transition: all 0.3s ease-in-out;
+}
+
+input::placeholder {
+    color: #b0b0b0;
+}
+
+input:focus {
+    border-color: #ffffff;
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(89, 89, 90, 0.7);
+}
+
+button {
+    background-color: #0050c7;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #002e92;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #242424;
+}
+
+th, td {
+    padding: 14px;
+    border: 1px solid #333;
+    text-align: left;
+    color: #e0e0e0;
+}
+
+th {
+    background-color: #525252;
+    color: white;
+}
+
+td input {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #444;
+    font-size: 14px;
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+
+td button {
+    padding: 10px 14px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+td button:last-child {
+    background-color: #bb001f;
+}
+
+td button:last-child:hover {
+    background-color: #7e0017;
+}
+
+td button:first-child {
+    background-color: #218d00;
+}
+
+td button:first-child:hover {
+    background-color: #035e00;
+}
+
+.purchaseBtn{
+    Background-color: #218d00;
+}
+
+.purchaseBtn:hover{
+    background-color: #035e00;
+}
+
+.Admin{
+    display: none;
+}
+
+.Helper{
+    display: none;
+}
+
+.Receipts{
+    display: none;
+}
+
+.loginScreen{
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+}
+
+.login-container {
+    z-index: 100;
+    background-color: rgb(51, 51, 51);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    padding: 20px;
+    height: 100%;
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.login-button {
+    width: 100%;
+    background-color: #4169e1;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background-color: #3a5fcd;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        max-width: 90%;
+        padding: 20px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    input {
+        width: 100%;
+    }
+}
